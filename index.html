@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <header class="jumbotron jumbotron-fluid">
+    <header class="jumbotron jumbotron-fluid mb-0">
 
         <section class="container">
             <h1 class="display-4">Weather Dashboard</h1>
@@ -24,12 +24,17 @@
 
     <main class="container-fluid">
         <section class = 'row'>
-            <section id = 'searchArea' class = 'col-3' style="background-color: aqua;">
-                <input type="text" placeholder="Search City"><button>Submit</button>
+            <section id = 'searchArea' class = 'col-3'>
+                <input id = 'citySearch' type="text" placeholder="Search City">
+                <button id = 'submitButton' class="btn btn-primary">Submit</button>
             </section>
-            <section id = 'mainContent'class = 'col-9' style="background-color: brown;">
-    
-                abc
+            <section id = 'mainContent'class = 'col-9'>
+                <section id = 'currentInfo'></section>
+                <h2 id = 'headerFiveDay'>5-Day Forecast</h2>
+                <section id = 'fiveDayForecast'>
+                    
+                </section>
+                
     
             </section>
         </section>
@@ -45,5 +50,9 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
 <script src = "assets/script.js"></script>
+
+
 </body>
