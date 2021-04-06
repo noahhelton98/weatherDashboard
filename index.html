@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,400;0,700;1,200&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
 
 
   <link rel="stylesheet" href="assets/style.css" />
@@ -26,12 +29,19 @@
         <section class = 'row'>
             <section id = 'searchArea' class = 'col-3'>
                 <input id = 'citySearch' type="text" placeholder="Search City">
-                <button id = 'submitButton' class="btn btn-primary">Submit</button>
+                <button id = 'submitButton' class="btn btn-primary">
+                    <i class="fa fa-search"></i>
+                </button>
+
+                <section id = 'newButtons' class="btn-group-vertical"></section>
+
             </section>
             <section id = 'mainContent'class = 'col-9'>
                 <section id = 'currentInfo'></section>
                 <h2 id = 'headerFiveDay'>5-Day Forecast</h2>
+
                 <section id = 'fiveDayForecast'>
+
                     
                 </section>
                 

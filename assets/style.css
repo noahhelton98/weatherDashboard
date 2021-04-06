@@ -3,11 +3,23 @@ header{
     margin-bottom: 0px;
 }
 
+
+main {
+    font-family: 'Titillium Web', sans-serif;;
+}
 #searchArea{
     height: 50rem;
     background-color: rgb(223, 219, 219);
+    font-size: large;
 
 }
+#searchArea #citySearch{
+    margin-top: 5px;
+    width: 80%;
+}
+
+
+
 
 #mainContent{
     height: 40rem;
@@ -27,8 +39,14 @@ header{
 }
 
 .weatherContainer {
+    display: grid;
     color: white;
     background-color: rgba(0, 102, 255, 0.836);
+    justify-content: center; 
+    align-items: center; 
     flex-direction: row;
-    margin:auto
+    margin:auto;
+    border-radius: 10px;
+    width:15%;
 }
+
