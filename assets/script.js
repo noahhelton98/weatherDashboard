@@ -10,36 +10,48 @@ var citiesSearched = [];
 var date = moment().format('MMM Do, YYYY');
 $('#headerFiveDay').hide()
 
-
-
-
-
-
 var previouslySearched = JSON.parse(localStorage.getItem('cities'))
+
 if (previouslySearched){
-    for (var i =0; i < previouslySearched.length; i++)
-    $('#newButtons').append(`<button class = "newCity" class="btn btn-group-vertical">${previouslySearched[i]}</button>`)
+    for (var i =0; i < previouslySearched.length; i++){
+        citiesSearched.push(previouslySearched[i])
+        $('#newButtons').append(`<button class = "newCity" class="btn btn-group-vertical">${previouslySearched[i]}</button>`)
+    }
+
 }
+ 
 
-
+var cityBtnsEl = $('#newButtons button')
+console.log(cityBtnsEl)
 
 
 submitEl.on('click', function(event){
     event.preventDefault();
+    
     if (citySearchEl.val()){
-    citiesSearched.push(citySearchEl.val())
-    //Save to local storage 
-    localStorage.setItem("cities", JSON.stringify(citiesSearched));
-    displayWeather(citySearchEl.val());
-    displayFiveDay(citySearchEl.val());
-    previouslySearchedFunction(citySearchEl.val());
- 
+    
+        displayWeather(citySearchEl.val());
+        displayFiveDay(citySearchEl.val());
+        previouslySearchedFunction(citySearchEl.val());
+
+       //var currentStorage = JSON.parse(localStorage.getItem('cities'))
+       //console.log(citySearchEl.val())
+       //currentStorage.push(citySearchEl.val())
+       //localStorage.setItem("cities", JSON.stringify(currentStorage));
+       cityBtnsEl = $('#newButtons button')
+
+        saveToLocalStorage(citySearchEl.val())
+        console.log(cityBtnsEl)
 }
 })
 
 var previouslySearchedFunction = function(city){
     $('#newButtons').append(`<button class = "newCity" class="btn btn-group-vertical">${city}</button>`)
+    cityBtnsEl = $('#newButtons button')
+
 }
+
+
 
 //Display the Current weather function 
 var displayWeather =  function (city) {
@@ -103,7 +115,6 @@ var displayFiveDay = function(city){
     $('#headerFiveDay').show();
     fiveDay.html("")
     var dates = []
-    console.log(dates)
     for (var i = 0; i < 5; i++){
         var day = moment().add(i, 'd');
         dates.push(day.format('MM/DD/YYYY'))
@@ -112,7 +123,6 @@ var displayFiveDay = function(city){
     .then (function(response){
         response.json().then(function(data){
             for (var i = 0; i < 5; i++){
-                console.log(data.list[i])
                 
                 fiveDay.append(
                     `<section class = weatherContainer > 
@@ -120,8 +130,6 @@ var displayFiveDay = function(city){
                     <img src = https://openweathermap.org/img/wn/${data.list[i].weather[0].icon}@2x.png width="50px" height="50px">
                     <p>Temperature: ${data.list[i].main.temp}</p>
                     <p>Humidity: ${data.list[i].main.humidity}%</p>
-
-                    
                     </section>`
                 )
             }
@@ -132,16 +140,18 @@ var displayFiveDay = function(city){
 
 
 
+//Save to Local Storage 
+var saveToLocalStorage = function(city){
+    citiesSearched.push(city)
+    localStorage.setItem("cities", JSON.stringify(citiesSearched))
+}
 
 //Cities added buttons 
-
-var cityBtnsEl = $('#newButtons button')
-
-console.log(cityBtnsEl[0])
-
 cityBtnsEl.on('click', function(event){
-    event.preventDefault()
+    console.log($(this)[0].innerText)
+    //event.preventDefault()
     var t = $(this)[0].innerText
-    displayWeather(t);
-    displayFiveDay(t);
-})
+    displayWeather($(this)[0].innerText);
+    displayFiveDay($(this)[0].innerText);
+}) 
+
