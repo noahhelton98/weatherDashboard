@@ -20,42 +20,39 @@ if (previouslySearched){
 
 }
  
-
 var cityBtnsEl = $('#newButtons button')
-console.log(cityBtnsEl)
 
 
 submitEl.on('click', function(event){
-    event.preventDefault();
-    
+
+
     if (citySearchEl.val()){
-    
-        displayWeather(citySearchEl.val());
-        displayFiveDay(citySearchEl.val());
-        previouslySearchedFunction(citySearchEl.val());
+        
 
-       //var currentStorage = JSON.parse(localStorage.getItem('cities'))
-       //console.log(citySearchEl.val())
-       //currentStorage.push(citySearchEl.val())
-       //localStorage.setItem("cities", JSON.stringify(currentStorage));
-       cityBtnsEl = $('#newButtons button')
-
-        saveToLocalStorage(citySearchEl.val())
-        console.log(cityBtnsEl)
-}
+        
+            displayWeather(citySearchEl.val());
+            displayFiveDay(citySearchEl.val());
+            previouslySearchedFunction(citySearchEl.val());
+            saveToLocalStorage(citySearchEl.val());
+        }
+        
 })
 
 var previouslySearchedFunction = function(city){
     $('#newButtons').append(`<button class = "newCity" class="btn btn-group-vertical">${city}</button>`)
+
     cityBtnsEl = $('#newButtons button')
 
+    cityBtnsEl.on('click', function(event){
+        displayWeather($(this)[0].innerText);
+        displayFiveDay($(this)[0].innerText);
+            })
 }
-
 
 
 //Display the Current weather function 
 var displayWeather =  function (city) {
-    mainInfoCity.html("")
+    mainInfoCity.html('')
     fetch (apiURL + `weather?q=${city}&units=imperial&appid=8ed513747908d0ab51f99af804b7d62b`)
     .then(function(response){
         response.json().then(function(data){
@@ -66,7 +63,7 @@ var displayWeather =  function (city) {
             var lat = data.coord.lat;
             var lon = data.coord.lon;
             
-            mainInfoCity.append(`<h2>${city}    ${date} 
+            mainInfoCity.html(`<h2>${city} ${date} 
             <img src = https://openweathermap.org/img/wn/${icon}@2x.png width="50px" height="50px" >
             </h2> 
             <p>Temperature: ${temp} °F </p>
@@ -75,6 +72,7 @@ var displayWeather =  function (city) {
             <p>`
             )
             getUVIndex(lat, lon);
+            
         })
     })
 
@@ -112,16 +110,19 @@ var getUVIndex = function(lat, long){
 }
 
 var displayFiveDay = function(city){
+    fiveDay.html('')
     $('#headerFiveDay').show();
-    fiveDay.html("")
     var dates = []
     for (var i = 0; i < 5; i++){
         var day = moment().add(i, 'd');
         dates.push(day.format('MM/DD/YYYY'))
     }
+
+
     fetch (apiURL + `forecast?q=${city}&units=imperial&appid=8ed513747908d0ab51f99af804b7d62b`)
     .then (function(response){
         response.json().then(function(data){
+            var list = []
             for (var i = 0; i < 5; i++){
                 
                 fiveDay.append(
@@ -133,6 +134,7 @@ var displayFiveDay = function(city){
                     </section>`
                 )
             }
+            
 
         })
     })
@@ -153,5 +155,11 @@ cityBtnsEl.on('click', function(event){
     var t = $(this)[0].innerText
     displayWeather($(this)[0].innerText);
     displayFiveDay($(this)[0].innerText);
-}) 
+})  
+
+
+$('#clearBtn').on('click', function(){
+    $('#newButtons').html('');
+    localStorage.clear('cities');
+})
 
